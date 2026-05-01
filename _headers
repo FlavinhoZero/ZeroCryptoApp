@@ -1,0 +1,50 @@
+# =============================================================================
+# _headers — Cloudflare Pages / Netlify format
+# =============================================================================
+# NOTA: Este arquivo é COMPLETAMENTE IGNORADO pelo GitHub Pages.
+#       Torna-se ativo automaticamente ao:
+#         - Migrar para Cloudflare Pages (substitui GitHub Pages)
+#         - Usar Cloudflare como proxy na frente do GitHub Pages
+#           (requer Cloudflare Transform Rules — ver guia de migração)
+#
+# Compressão: Cloudflare aplica brotli/gzip automaticamente em todos os assets
+#             sem qualquer configuração adicional.
+# =============================================================================
+
+
+# -----------------------------------------------------------------------------
+# Segurança — aplicado a TODAS as rotas
+# -----------------------------------------------------------------------------
+/*
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
+  Cross-Origin-Opener-Policy: same-origin
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://js.stripe.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; connect-src 'self' https://*.execute-api.sa-east-1.amazonaws.com https://*.amazoncognito.com https://cognito-idp.sa-east-1.amazonaws.com https://api.stripe.com https://*.mercadopago.com https://cloudflareinsights.com; img-src 'self' data: https:; font-src 'self' data:; frame-src https://js.stripe.com https://hooks.stripe.com https://checkout.stripe.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none';
+
+
+# -----------------------------------------------------------------------------
+# HTML — nunca cachear (deve sempre buscar a versão mais recente)
+# -----------------------------------------------------------------------------
+/
+  Cache-Control: no-cache, must-revalidate
+
+/index.html
+  Cache-Control: no-cache, must-revalidate
+
+
+# -----------------------------------------------------------------------------
+# Assets com hash no nome — cache permanente (1 ano)
+# O hash muda a cada build, portanto cache agressivo é completamente seguro.
+# Isso é o equivalente ao que o GitHub Pages deveria fazer mas não faz.
+# -----------------------------------------------------------------------------
+/_expo/static/js/web/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/_expo/static/css/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/_expo/static/media/*
+  Cache-Control: public, max-age=31536000, immutable
